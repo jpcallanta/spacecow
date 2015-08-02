@@ -6,7 +6,7 @@ from lib.enemy import Enemy
 
 class Window(pyglet.window.Window):
   player = None
-  enemy_qty = 10
+  enemy_qty = 100
   enemy = []
   label_mouse_xy = None
   mouse_x = 0
@@ -32,6 +32,18 @@ class Window(pyglet.window.Window):
     self.player.x_pos = self.width / 2
     self.player.y_pos = self.height / 2
     self.label_mouse_xy = pyglet.text.Label("Mouse Location")
+
+    self.play_bg_music()
+
+  def play_bg_music(self):
+    bg_music = pyglet.media.Player()
+    music = pyglet.media.load('resources/635964_A-Heros-Destiny.mp3')
+    
+    bg_music.queue(music)
+
+    bg_music.eos_action = pyglet.media.Player.EOS_LOOP
+
+    bg_music.play()
 
   def follow_mouse(self, player, timer, speed):
     player.c_val = sqrt((self.mouse_x - player.x_pos) ** 2 + \
