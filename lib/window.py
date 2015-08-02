@@ -2,16 +2,15 @@ import pyglet
 from math import *
 from random import randint
 from lib.player import Player
-from lib.enemy import *
+from lib.enemy import Enemy
 
 class Window(pyglet.window.Window):
   player = None
-  enemy_qty = 5
+  enemy_qty = 10
   enemy = []
   label_mouse_xy = None
   mouse_x = 0
   mouse_y = 0
-
 
   # Class initializer
   def __init__(self, size_x, size_y, resize):
@@ -55,7 +54,6 @@ class Window(pyglet.window.Window):
 
     if enemy.c_val > 1.0:
       enemy.rotation = atan2(delta_y, delta_x) / pi * 180 * -1
-
 
   def update(self, dt):
     self.label_mouse_xy.text = \
