@@ -18,6 +18,7 @@ class Window(pyglet.window.Window):
     super(Window, self).__init__(resizable = resize, visible = True, vsync = False)
     self.set_size(size_x, size_y)
     self.set_caption('SpaceCow')
+    self.maximize()
 
     self.player = Player((self.width / 2), (self.height / 2), 0, "resources/ship.png")
 
