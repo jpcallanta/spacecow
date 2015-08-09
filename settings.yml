@@ -1,0 +1,9 @@
+---
+# Window settings
+resolution_x: 1024
+resolution_y: 768
+allow_resize: True
+maximize_window: True
+enable_vsync: True
+enable_bg_music: True
+bg_music_file: 'resources/635964_A-Heros-Destiny.mp3'

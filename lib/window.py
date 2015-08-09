@@ -3,31 +3,46 @@ from math import *
 from random import randint
 from lib.player import Player
 from lib.enemy import Enemy
+from lib.settings import Settings
 
 class Window(pyglet.window.Window):
+  settings = None
   player = None
-  enemy_qty = 100
   enemy = []
   label_mouse_xy = None
   mouse_x = 0
   mouse_y = 0
 
-  # Class initializer
-  def __init__(self, size_x, size_y, resize):
-    super(Window, self).__init__(resizable = resize, visible = True, vsync = False)
-    self.set_size(size_x, size_y)
+  def __init__(self):
+    # Load up game settings
+    self.settings = Setting()
+
+    # Setup main game window
+    super(Window, self).__init__(resizable = self.settings.window_resize,
+      vsync = self.settings.window_vsync,
+      visible = True)
+    self.set_size(self.settings.window_x, self.settings.window_y)
     self.set_caption('SpaceCow')
-    self.maximize()
 
+    if self.settings.window_maximized:
+      self.maximize()
+
+    # Setup enemies
+    self.enemy in range(self.settings.enemy.qty):
+      self.enemy.append(Enemy
+        (randint(0, self.width),
+          randint(0, self.height),
+          randint(0, self.rotation),
+          1.0,
+          'resources/cow.png',
+          0.0,
+          randint(0, 25),
+          True,
+          0.0,
+          1.0))
+
+  def __init__(self, size_x, size_y, resize):
     self.player = Player((self.width / 2), (self.height / 2), 0, "resources/ship.png")
-
-    for enemies in range(self.enemy_qty):
-      self.enemy.append(Enemy((self.width / 2), (self.height / 2), 0, "resources/cow.png"))
-
-    for e in self.enemy:
-      e.x_pos = randint(0, self.width)
-      e.y_pos = randint(0, self.height)
-      e.rotation = randint(0, 360)
 
     self.player.x_pos = self.width / 2
     self.player.y_pos = self.height / 2
@@ -38,7 +53,7 @@ class Window(pyglet.window.Window):
   def play_bg_music(self):
     bg_music = pyglet.media.Player()
     music = pyglet.media.load('resources/635964_A-Heros-Destiny.mp3')
-    
+
     bg_music.queue(music)
 
     bg_music.eos_action = pyglet.media.Player.EOS_LOOP
